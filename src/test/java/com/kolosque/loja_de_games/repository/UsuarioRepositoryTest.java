@@ -17,34 +17,34 @@ public class UsuarioRepositoryTest {
 
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuariosRepository usuariosRepository;
 
     @BeforeAll
     void start(){
-        usuarioRepository.deleteAll();
+        usuariosRepository.deleteAll();
 
-        usuarioRepository.save(new Usuarios(0l,"João da silva","joao@email.com.br","12345678","https://i.imgur.com/FETvs20.jpg"));
+        usuariosRepository.save(new Usuarios(0l,"João da silva","joao@email.com.br","12345678","https://i.imgur.com/FETvs20.jpg"));
 
-        usuarioRepository.save(new Usuarios(0l,"Manuela da Silva","manuela@email.com.br","12345678","https://i.imgur.com/FETvs20.jpg"));
+        usuariosRepository.save(new Usuarios(0l,"Manuela da Silva","manuela@email.com.br","12345678","https://i.imgur.com/FETvs20.jpg"));
 
-        usuarioRepository.save(new Usuarios(0l,"adriana melo rego silva","adriana@email.com.br","12345678","https://i.imgur.com/FETvs20.jpg"));
+        usuariosRepository.save(new Usuarios(0l,"adriana melo rego silva","adriana@email.com.br","12345678","https://i.imgur.com/FETvs20.jpg"));
 
-        usuarioRepository.save(new Usuarios(0l,"Paula tejano","paula@email.com.br","12345678","https://i.imgur.com/FETvs20.jpg"));
+        usuariosRepository.save(new Usuarios(0l,"Paula tejano","paula@email.com.br","12345678","https://i.imgur.com/FETvs20.jpg"));
 
     }
 
     @Test
     @DisplayName("Retorna 1 usuario")
     public void deveRetornaUmUsuario(){
-        Optional<Usuarios> usuario = usuarioRepository.findByUsuarios("joao@email.com.br");
-        assertTrue(usuario.get().getUsuario().equals("joao@email.com.br"));
+        Optional<Usuarios> usuario = usuariosRepository.findByEmail("joao@email.com.br");
+        assertTrue(usuario.get().getEmail().equals("joao@email.com.br"));
     }
 
 
     @Test
     @DisplayName("Retorna 3 usuarios")
     public void dveRetornarTresUsuarios(){
-        List<Usuarios> listaDeUsuarios = usuarioRepository.findAllByNomeContainingIgnoreCase("Silva");
+        List<Usuarios> listaDeUsuarios = usuariosRepository.findAllByNomeContainingIgnoreCase("Silva");
         assertEquals(3, listaDeUsuarios.size());
         assertTrue(listaDeUsuarios.get(0).getNome().equals("João da silva"));
         assertTrue(listaDeUsuarios.get(1).getNome().equals("Manuela da Silva"));
@@ -53,7 +53,7 @@ public class UsuarioRepositoryTest {
 
     @AfterAll
     public void end(){
-        usuarioRepository.deleteAll();
+        usuariosRepository.deleteAll();
     }
 
 }
