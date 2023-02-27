@@ -1,8 +1,8 @@
 package com.kolosque.loja_de_games.controller;
 
 
-import com.kolosque.loja_de_games.model.Categorias;
-import com.kolosque.loja_de_games.repository.CategoriasRepository;
+import com.kolosque.loja_de_games.model.Categoria;
+import com.kolosque.loja_de_games.repository.CategoriaRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,47 +16,47 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/categorias")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class CategoriasController {
+public class CategoriaController {
 
     @Autowired
-    private CategoriasRepository categoriasRepository;
+    private CategoriaRepository categoriasRepository;
 
     @GetMapping
-    public ResponseEntity<List<Categorias>> getAll(){
+    public ResponseEntity<List<Categoria>> getAll(){
         return ResponseEntity.ok(categoriasRepository.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Categorias> getById(@PathVariable Long id){
+    public ResponseEntity<Categoria> getById(@PathVariable Long id){
         return categoriasRepository.findById(id)
                 .map(resposta -> ResponseEntity.ok(resposta))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @GetMapping("/tipo/{tipo}")
-    public ResponseEntity<List<Categorias>> getByTipo(@PathVariable String marca){
+    public ResponseEntity<List<Categoria>> getByTipo(@PathVariable String marca){
         return ResponseEntity.ok(categoriasRepository
                 .findAllByMarcaContainingIgnoreCase(marca));
     }
 
     @PostMapping
-    public ResponseEntity<Categorias> post(@Valid @RequestBody Categorias categorias){
+    public ResponseEntity<Categoria> post(@Valid @RequestBody Categoria categoria){
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(categoriasRepository.save(categorias));
+                .body(categoriasRepository.save(categoria));
     }
 
     @PutMapping
-    public ResponseEntity<Categorias> put(@Valid @RequestBody Categorias categorias){
-        return categoriasRepository.findById(categorias.getId())
+    public ResponseEntity<Categoria> put(@Valid @RequestBody Categoria categoria){
+        return categoriasRepository.findById(categoria.getId())
                 .map(resposta -> ResponseEntity.status(HttpStatus.CREATED)
-                        .body(categoriasRepository.save(categorias)))
+                        .body(categoriasRepository.save(categoria)))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        Optional<Categorias> categorias = categoriasRepository.findById(id);
+        Optional<Categoria> categorias = categoriasRepository.findById(id);
 
         if(categorias.isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);

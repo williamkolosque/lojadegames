@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Entity
 @Table(name = ("tb_produto"))
-public class Produtos {
+public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,18 +37,18 @@ public class Produtos {
 
     @ManyToOne
     @JsonIgnoreProperties("produtos")
-    private Categorias categorias;
+    private Categoria categoria;
 
     @ManyToOne
     @JsonIgnoreProperties("produtos")
-    private Usuarios usuarios;
+    private Usuario usuario;
 
-    public Usuarios getUsuarios() {
-        return usuarios;
+    public Usuario getUsuarios() {
+        return usuario;
     }
 
-    public void setUsuarios(Usuarios usuarios) {
-        this.usuarios = usuarios;
+    public void setUsuarios(Usuario usuarios) {
+        this.usuario = usuarios;
     }
 
     public Long getId() {
@@ -107,11 +107,11 @@ public class Produtos {
         this.idioma = idioma;
     }
 
-    public Categorias getCategorias() {
-        return categorias;
+    public Categoria getCategorias() {
+        return categoria;
     }
 
-    public void setCategorias(Categorias categorias) {
-        this.categorias = categorias;
+    public void setCategorias(Categoria categoria) {
+        this.categoria = categoria;
     }
 }

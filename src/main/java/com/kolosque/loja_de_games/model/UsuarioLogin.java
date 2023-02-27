@@ -1,5 +1,6 @@
 package com.kolosque.loja_de_games.model;
 
+
 public class UsuarioLogin {
 
     private Long id;
@@ -48,6 +49,7 @@ public class UsuarioLogin {
     public void setFoto(String foto) {
         this.foto = foto;
     }
+
 
     public String getToken() {
         return token;

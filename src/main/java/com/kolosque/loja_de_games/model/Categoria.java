@@ -2,15 +2,13 @@ package com.kolosque.loja_de_games.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.lang.NonNull;
 
 import java.util.List;
 
 @Entity
 @Table(name=("tb_categoria"))
-public class Categorias {
+public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,9 +26,9 @@ public class Categorias {
     @NotNull
     private String publicadora;
 
-    @OneToMany(mappedBy = "categorias", cascade = CascadeType.REMOVE)
-    @JsonIgnoreProperties("categorias")
-    private List<Produtos> produtos;
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties("categoria")
+    private List<Produto> produtos;
 
     public Long getId() {
         return id;
@@ -72,11 +70,11 @@ public class Categorias {
         this.publicadora = publicadora;
     }
 
-    public List<Produtos> getProdutos() {
+    public List<Produto> getProdutos() {
         return produtos;
     }
 
-    public void setProdutos(List<Produtos> produtos) {
+    public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
     }
 }

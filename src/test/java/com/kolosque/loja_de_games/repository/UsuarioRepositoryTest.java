@@ -1,6 +1,6 @@
 package com.kolosque.loja_de_games.repository;
 
-import com.kolosque.loja_de_games.model.Usuarios;
+import com.kolosque.loja_de_games.model.Usuario;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,26 +17,26 @@ public class UsuarioRepositoryTest {
 
 
     @Autowired
-    private UsuariosRepository usuariosRepository;
+    private UsuarioRepository usuariosRepository;
 
     @BeforeAll
     void start(){
         usuariosRepository.deleteAll();
 
-        usuariosRepository.save(new Usuarios(0l,"João da silva","joao@email.com.br","12345678","https://i.imgur.com/FETvs20.jpg"));
+        usuariosRepository.save(new Usuario(0l,"João da silva","joao@email.com.br","12345678","https://i.imgur.com/FETvs20.jpg"));
 
-        usuariosRepository.save(new Usuarios(0l,"Manuela da Silva","manuela@email.com.br","12345678","https://i.imgur.com/FETvs20.jpg"));
+        usuariosRepository.save(new Usuario(0l,"Manuela da Silva","manuela@email.com.br","12345678","https://i.imgur.com/FETvs20.jpg"));
 
-        usuariosRepository.save(new Usuarios(0l,"adriana melo rego silva","adriana@email.com.br","12345678","https://i.imgur.com/FETvs20.jpg"));
+        usuariosRepository.save(new Usuario(0l,"adriana melo rego silva","adriana@email.com.br","12345678","https://i.imgur.com/FETvs20.jpg"));
 
-        usuariosRepository.save(new Usuarios(0l,"Paula tejano","paula@email.com.br","12345678","https://i.imgur.com/FETvs20.jpg"));
+        usuariosRepository.save(new Usuario(0l,"Paula tejano","paula@email.com.br","12345678","https://i.imgur.com/FETvs20.jpg"));
 
     }
 
     @Test
     @DisplayName("Retorna 1 usuario")
     public void deveRetornaUmUsuario(){
-        Optional<Usuarios> usuario = usuariosRepository.findByEmail("joao@email.com.br");
+        Optional<Usuario> usuario = usuariosRepository.findByEmail("joao@email.com.br");
         assertTrue(usuario.get().getEmail().equals("joao@email.com.br"));
     }
 
@@ -44,7 +44,7 @@ public class UsuarioRepositoryTest {
     @Test
     @DisplayName("Retorna 3 usuarios")
     public void dveRetornarTresUsuarios(){
-        List<Usuarios> listaDeUsuarios = usuariosRepository.findAllByNomeContainingIgnoreCase("Silva");
+        List<Usuario> listaDeUsuarios = usuariosRepository.findAllByNomeContainingIgnoreCase("Silva");
         assertEquals(3, listaDeUsuarios.size());
         assertTrue(listaDeUsuarios.get(0).getNome().equals("João da silva"));
         assertTrue(listaDeUsuarios.get(1).getNome().equals("Manuela da Silva"));

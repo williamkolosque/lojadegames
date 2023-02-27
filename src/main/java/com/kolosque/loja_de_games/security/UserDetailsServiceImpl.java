@@ -1,30 +1,34 @@
 package com.kolosque.loja_de_games.security;
 
-import com.kolosque.loja_de_games.model.Usuarios;
-import com.kolosque.loja_de_games.repository.UsuariosRepository;
+import com.kolosque.loja_de_games.model.Usuario;
+import com.kolosque.loja_de_games.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UsuariosRepository usuariosRepository;
+    private UsuarioRepository usuarioRepository;
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
-        Optional<Usuarios> usuario = usuariosRepository.findByEmail(userName);
+        Optional<Usuario> usuario = usuarioRepository.findByEmail(userName);
 
-        if (usuario.isPresent())
+        if(usuario.isPresent()){
             return new UserDetailsImpl(usuario.get());
-        else
+        }else{
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+
     }
 
 
